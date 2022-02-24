@@ -1,11 +1,11 @@
 import sqlite3
 
+
 class incidentDataBase:
     sql_drop_table_query = "drop table if exists 'incidents';"
     sql_create_table_query = "create table incidents ( incident_time TEXT, incident_number TEXT, incident_location TEXT, incident_nature TEXT, incident_ORI TEXT);"
     sql_insert_into_table_query = "insert into incidents(incident_time, incident_number, incident_location, incident_nature, incident_ORI) values(?, ?, ?, ?, ?);"
     sql_count_nature_of_incident_query = "select count(incident_nature) as number, incident_nature from incidents group by incident_nature order by incident_number desc, incident_nature asc;"
-
 
     def __init__(self):
         self.databaseName = 'normanpd.db'

@@ -1,5 +1,4 @@
 import argparse
-# import project0
 from fetchIncidents import *
 from extractIncidents import *
 from incidentsDB import *

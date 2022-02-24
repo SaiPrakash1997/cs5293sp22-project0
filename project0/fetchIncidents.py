@@ -1,5 +1,6 @@
 import urllib.request
 
+
 class dataFetchedFromURL:
     def __init__(self):
         self.data = ''

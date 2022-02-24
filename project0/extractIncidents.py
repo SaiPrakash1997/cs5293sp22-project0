@@ -2,6 +2,7 @@ import tempfile
 import PyPDF2
 import re
 
+
 class extractDataFromFile:
     def __init__(self):
         self.fp = tempfile.TemporaryFile()

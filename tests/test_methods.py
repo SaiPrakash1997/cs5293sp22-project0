@@ -1,5 +1,3 @@
-import pytest
-import project0
 import sqlite3
 from project0.extractIncidents import extractDataFromFile
 from project0.incidentsDB import incidentDataBase
