@@ -58,11 +58,16 @@ class extractDataFromFile:
                     if len(tempData) > 5:
                         print("Entered to trim the list:", tempData)
                         print("Value at index 2:", tempData[2])
-                        print("Value at index 3:", tempData[3])
-                        str1 = tempData[2] + tempData[3]
+                        str1 = tempData[2]
+                        valueToAdd = len(tempData)-5
+                        for j in range(3, (valueToAdd+3), 1):
+                            str1 += tempData[j]
+                            print("Value adding to the str1:", str1)
                         print("Value in str1:", str1)
                         tempData[2] = str1
-                        del tempData[3]
+                        for k in range(3, (valueToAdd + 3), 1):
+                            print("Value deleted from list:", tempData[k])
+                            del tempData[k]
                         print("List after deletion:", tempData)
 
                     if len(tempData) == 3:

@@ -22,8 +22,7 @@ class incidentDataBase:
         count = 0
         for i in range(0, (len(dataList)-1), 1):
             cursorObj.execute(self.sql_insert_into_table_query, (dataList[i][0], dataList[i][1], dataList[i][2], dataList[i][3], dataList[i][4]))
-            count +=1
-        # cursorObj.executemany(self.sql_insert_into_table_query, dataList)
+            count += 1
         print("Total number of rows inserted:", count)
         con.commit()
         cursorObj.close()
