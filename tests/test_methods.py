@@ -35,6 +35,12 @@ def test_status():
     assert len(result) > 1
 
 
+def test_createdb():
+    incidentObj = incidentDataBase()
+    con = incidentObj.createdb()
+    assert con is not None
+
+
 
 
 

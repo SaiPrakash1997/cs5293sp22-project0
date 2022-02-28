@@ -10,6 +10,7 @@ def main(url):
     extractData = extractDataFromFile()
     dataList = extractData.extractincidents(fetchIncidentObj.fetchincidents(url))
     incidentDBObj = incidentDataBase()
+    incidentDBObj.createdb()
     incidentDBObj.populatedb(dataList)
     dataFetchedFromDB = incidentDBObj.status()
     if dataFetchedFromDB is not None:

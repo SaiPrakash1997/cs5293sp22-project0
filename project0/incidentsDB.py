@@ -10,6 +10,13 @@ class incidentDataBase:
     def __init__(self):
         self.databaseName = 'normanpd.db'
 
+    def createdb(self):
+        try:
+            con = sqlite3.connect(self.databaseName)
+        except sqlite3.Error as error:
+            print("Error Message while establishing a connection:", error.args)
+        return con
+
     def populatedb(self, dataList):
         try:
             con = sqlite3.connect(self.databaseName)
@@ -40,6 +47,8 @@ class incidentDataBase:
         print("Incident\t", "Count")
         for data in dataFetchedFromDatabase:
             print(data[1], "|", data[0])
+        cursorObjToFetchIncidents.close()
+        con.close()
         return dataFetchedFromDatabase
 
 
