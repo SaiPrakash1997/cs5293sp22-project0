@@ -21,6 +21,8 @@ class extractDataFromFile:
             print("Process started for the page:", i)
             page = pdfReader.getPage(i).extractText()
             if i == 0:
+                print("Before applying replace method for page:", i)
+                print("Page value", page)
                 page = page.replace("NORMAN POLICE DEPARTMENT", "")
                 page = page.replace("Daily Incident Summary (Public)", "")
                 page = page.replace("Date / Time", "")
@@ -31,7 +33,8 @@ class extractDataFromFile:
                 page = page.replace("Incident", "")
                 page = page.replace("ORI", "")
                 page = page.strip()
-                print("After applying strip method for 1st page:", page)
+                print("After applying strip method for page:", i)
+                print("Page value", page)
             if i != 0:
                 page = page.strip()
             page = page.replace("14005", "14005;")

@@ -13,15 +13,15 @@ class incidentDataBase:
     def createdb(self):
         try:
             con = sqlite3.connect(self.databaseName)
-        except sqlite3.Error as error:
-            print("Error Message while establishing a connection:", error.args)
+        except (sqlite3.Error, RuntimeError) as exception:
+            print("Error Message while establishing a connection:", exception.args)
         return con
 
     def populatedb(self, dataList):
         try:
             con = sqlite3.connect(self.databaseName)
-        except sqlite3.Error as error:
-            print("Error Message while establishing a connection:", error.args)
+        except (sqlite3.Error, RuntimeError) as exception:
+            print("Error Message while establishing a connection:", exception.args)
         print("Connected to database......")
         con.execute(self.sql_drop_table_query)
         con.execute(self.sql_create_table_query)
@@ -38,8 +38,8 @@ class incidentDataBase:
     def status(self):
         try:
             con = sqlite3.connect(self.databaseName)
-        except sqlite3.Error as error:
-            print("Error Message while establishing a connection:", error.args)
+        except sqlite3.Error as exception:
+            print("Error Message while establishing a connection:", exception.args)
         print("Connected to database......")
         cursorObjToFetchIncidents = con.cursor()
         cursorObjToFetchIncidents.execute(self.sql_count_nature_of_incident_query)
