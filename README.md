@@ -248,6 +248,28 @@ Output: Here, every String value is a row in a pdf file.
       ![img_11.png](img_11.png)
 * So, to handle this case, again I am checking the length of the list if the length equals 3 then we have two missing or empty values. I immediately added a condition that also checks to see if the first value in an index is in date format. If the condition is true then I am inserting the Null value to the index 2 and 3 in the list. 
 ![img_9.png](img_9.png)
+* Here, I am using a regex to check if the first value in the list consists a date.
 * Finally, I am adding the list which contains the value of a row to another list for all pages and returning the final list called dataList to the main function.
 
+incidentsDB.py:
+* The following file contains three functions: createdb(), populatedb(), and status().
+* The 'createdb()' function connects to a database file if already exists otherwise it creates a new one with the specified name.
+* The 'populatedb()' function establishes a connection with the database. If the table already exists within the database then it will be dropped. If not new table is created with below schema and data in the list will be inserted one by one into database. Finally, we commit the transaction and closes the connection to the database.
+* The 'status()' function also first tries to establish a connection with the database. After a connection is established, we fetch the data from the database and display the result to the user as incident_nature and its respective count.
+
+Note: if an error occur whilst establishing a connection to database file then it will be handled by except block.
+
+Test Cases:
+* Test cases to test above functionalities are available in tests folder which contains a python file called test_methods.py.
+* Command to install pytest: pipenv install pytest
+* Command to run test cases: pipenv run python -m pytest
+
+test_methods.py:
+* To test the functionalities of the written functions, I have written the following test cases:
+1) test_fetchincidents(): It checks the functionality of 'fetchincidents()' function by passing in the URL of already downloaded file and asserts if the final value is not equal to None, length of the list is not equal to 0, and length equals 262.
+   Example URL: "file:///C:/Users/saida/PycharmProjects/cs5293sp22-project0/2022-01-01_daily_incident_summary.pdf"
+2) test_extractsIncidents(): It checks the functionality of 'extractsIncidents()' function by passing data collected from the downloaded pdf file in byte format and asserts if the length of the list is not equal to 0, and length equals 261.
+3) test_populatedb(): This method opens the pdf file and performs extraction of data, process it, and inserts into database file. To check if the test is successfully passed, I have fetched the count of records and asserted it with the length of datalist i.e.; 261.
+4) test_status(): This test function is used to test the 'status()' function  which fetches the incident_nature and its occurrence counts.
+5) test_createdb(): It is used to test if the connection is established successfully to the database.
 
