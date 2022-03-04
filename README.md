@@ -14,33 +14,33 @@ WEB OR EXTERNAL LIBRARIES:
 * import sqlite3
 
 INSTALLATION OF ABOVE LIBRARIES:
-* To install PyPDF2: pip install PyPDF2 (if you receive error like 'module not found' please use this: pipenv install PyPDF2)
+* To install PyPDF2: pip install PyPDF2 (if you receive an error like 'module not found' please use this: pipenv install PyPDF2)
 * To install re: pip install regex
 
-Note: All the above-mentioned libraries comes as in-built modules for python3 but if they are not pre-installed then use above commands to install them.
+Note: All the above-mentioned libraries come as in-built modules for python3 but if they are not pre-installed then use the above commands to install them.
 
 FUNCTIONS AND APPROACH TO DEVELOPING THE DATABASE:
 
 main.py:
-* This file acts as a base layer for my project where it takes incidents URL which is of String type as input from the user and passes it to the main function as input parameter.
+* This file acts as a base layer for my project where it takes the incidents URL which is of String type as input from the user and passes it to the main function as an input parameter.
 * In the main function, we make function calls to three different class files named fetchIncidents.py, extractIncidents.py, and incidentsDB.py which contains methods that collect, extract, insert, and provide incident_nature, respective count to the user.
-* At first, the URL which was collected from the user will be passed as an input parameter to 'fetchincidents' function in 'dataFetchedFromURL' class in fetchIncidents.py file. This function returns data as output which will be acted as an input for another function.
+* At first, the URL which was collected from the user will be passed as an input parameter to the 'fetchincidents' function in the 'dataFetchedFromURL' class in the fetchIncidents.py file. This function returns data as output which will be acted as an input for another function.
 * The result from the 'fetchincidents' function act as an input parameter to 'extractincidents' function in 'extractDataFromFile' class file in extractIncidents.py file. After the data is fetched and processed, it will send to 'populatedb' function in 'incidentDataBase' class in incidentsDB.py file to be inserted into the sqlite3 database.
 * Before inserting the data, we make a function call to 'createdb' function to see if we can successfully connect to the database.
-* Finally, we call 'status' function in 'incidentDataBase' class in incidentsDB.py file to check the incident_nature and its respective count.
+* Finally, we call the 'status' function in the 'incidentDataBase' class in the incidentsDB.py file to check the incident_nature and its respective count.
 
 fetchIncidents.py:
-* In this file, the 'fetchincidents' function receives the user provided URL as input and uses the urllib.request library to open the URL and returns the output as file-like objects. This library has urlopen function to perform this operation.
-* The final result is returned to main function and passed as an input to 'extractincidents' function.
+* In this file, the 'fetchincidents' function receives the user-provided URL as an input and uses the urllib.request library to open the URL and returns the output as file-like objects. This library has urlopen function to perform this operation.
+* The final result is returned to the main function and passed as an input to the 'extractincidents' function.
 
 extractIncidents.py
-* This file contains a function called 'extractincidents' which takes result from 'fetchincidents' function.
-* Firstly, it writes the data to a temporary file using "import tempfile" module and sets the seek value to 0. So, python knows to read data from the start of the file.
-* Using 'PyPDF2.pdf.PdfFileReader' module, we read the data from tempfile and store it in pdfReader variable which becomes an iterable file-like object.
-* I have used for loop to iterate the pdfReader and to extract text in a page based on i parameter. 
+* This file contains a function called 'extractincidents' which takes the result from 'fetchincidents' function.
+* Firstly, it writes the data to a temporary file using the "import tempfile" module and sets the seek value to 0. So, python knows to read data from the start of the file.
+* Using the' PyPDF2.pdf.PdfFileReader' module, we read the data from tempfile and store it in pdfReader variable which becomes an iterable file-like object.
+* I have used for loop to iterate the pdfReader and to extract text in a page based on parameter i. 
 ![img.png](img.png)
 * Above if block was written for page 0 to replace String discripencies like 'NORMAN POLICE DEPARTMENT', 'Daily Incident Summary (Public)', 'Date / Time', 'Incident', 'Number', 'Location', 'Nature', and 'Incident ORI' with ''(empty space).
-* Further to remove the empty spaces in a string, I have used strip method.
+* Further to remove the empty spaces in a string, I have used the strip method.
 
 output:
 `Before applying replace method for page: 0
@@ -213,20 +213,41 @@ OK0140200`
 
 
 ![img_1.png](img_1.png)
-* The above if block can be used to remove spaces if any for remaining pages in pdf file.
+* The above if block can be used to remove spaces if any for the remaining pages in the pdf file.
 ![img_2.png](img_2.png)
-* After the String value in page is stripped of spaces, I am adding a delimiter to the values in the 5th column in the file to specify that it is the end of the row(To know more about it please refer to the assumptions block).
-* After adding a delimiter to the values, it is easy to split the String value(which contains whole page) into a list using split() method. So, output for this code will be in a list format containing String values which are rows in a certain page.
+* After the String value in the page is stripped of spaces, I am adding a delimiter to the values in the 5th column in the file to specify that it is the end of the row(To know more about it please refer to the assumptions block).
+* After adding a delimiter to the values, it is easy to split the String value(which contains the whole page) into a list using the split() method. So, the output for this code will be in a list format containing String values which are rows on a certain page.
 Output: Here, every String value is a row in a pdf file.
 ![img_3.png](img_3.png)
 
-* In the below code, the for loop is used to iterate a list which contains multiple rows. Every list value splits again into a sub list and stored in a tempData variable.
+* In the below code, the for loop is used to iterate a list that contains multiple rows. Every list value splits again into a sub-list and stored in a tempData variable.
 ![img_5.png](img_5.png)
 
-* If you observe the below image and the text which is highlighted, we can observe that when the initial split happened every last row in a list which holds the current page data has a delimiter at the very end. So, to clean the data of these kinds of discripencies, I have written the if-else block that removes the delimiter.
+* If you observe the below image and the text which is highlighted, we can observe that when the initial split happened every last row in a list that holds the current page data has a delimiter at the very end. So, to clean the data of these kinds of discrepancies, I have written the if-else block that removes the delimiter.
 
 ![img_4.png](img_4.png)
 
 
 ![img_6.png](img_6.png)
+
+
+
+* After analyzing multiple pdf files, I have found an odd case scenario where the 'incident_location' column value is extended to multiple lines in a row.
+  Example:
+    ![img_7.png](img_7.png)
+    ![img_8.png](img_8.png)
+
+* To solve this issue, I have written an if block that checks if the length of the list is greater than 5.
+  For example: if the length of the list equals 6 then the 'incident_location' field value for the current row exceeded one more line. So, I have combined the values at the index of 2 and 3 and replaced them at index 2 in a list. Finally, deleted the extra column in the list.
+  ![img_6.png](img_6.png)
+
+* How to handle Null/empty values in a pdf file? or Where do Null/Empty values exist in a pdf file?
+  First, I have analyzed multiple Daily Activity Reports and found this kind of scenario plays out one way i.e.; empty/null values exist only in the 'incident_location' and 'incident_nature' columns and that too happens at the same time.
+   Example: 
+      ![img_10.png](img_10.png)
+      ![img_11.png](img_11.png)
+* So, to handle this case, again I am checking the length of the list if the length equals 3 then we have two missing or empty values. I immediately added a condition that also checks to see if the first value in an index is in date format. If the condition is true then I am inserting the Null value to the index 2 and 3 in the list. 
+![img_9.png](img_9.png)
+* Finally, I am adding the list which contains the value of a row to another list for all pages and returning the final list called dataList to the main function.
+
 
