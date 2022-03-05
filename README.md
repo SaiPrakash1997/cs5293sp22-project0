@@ -2,6 +2,8 @@
 NAME: 
 Sai Prakash Davuluri
 
+Goal: the aim of the project is to provide a summary of incident_nature and its respective count that happened in Norman on a particular date as output by taking in the URL as input from the user. This pdf file contains sensitive information like incident nature, location etc.
+
 EXAMPLE ON HOW TO RUN THE APPLICATION: 
 
 pipenv run python project0/main.py --incidents https://www.normanok.gov/sites/default/files/documents/2022-02/2022-02-01_daily_incident_summary.pdf
@@ -18,6 +20,19 @@ INSTALLATION OF ABOVE LIBRARIES:
 * To install re: pip install regex
 
 Note: All the above-mentioned libraries come as in-built modules for python3 but if they are not pre-installed then use the above commands to install them.
+
+Assumptions made in the project:
+* These assumptions are made after analyzing numerous daily activity reports.
+* The URL provided to the code should be active in the website: https://www.normanok.gov/public-safety/police-department/crime-prevention-data/department-activity-reports
+* After observing various reports, I have found that 'Incident ORI' column consists of only four types of values i.e.; 14005, EMSSTAT, OK0140200, and 14009. 
+* Column values in all rows are separated by '\n'. So, I have added a delimiter to all the values in the 'Incident ORI' column.
+* Coming to missing/Empty values, I have assigned Null value to these fields. I have made an assumption after reviewing various that empty value occur only in location and nature columns that too at the same time. So, when ever the length is equals 3, I am adding Null value to the record.
+* Multiline values: these only appear in location column. So, when these appear in a pdf file, I am combining/merging excess values to the second index in the record's list and deleting the excess values.
+* The database file is created with the name 'normanpd.db'
+* The incidents database is dropped first whenever you try to insert new pdf file data into the database.
+
+
+
 
 FUNCTIONS AND APPROACH TO DEVELOPING THE DATABASE:
 
@@ -272,4 +287,13 @@ test_methods.py:
 3) test_populatedb(): This method opens the pdf file and performs extraction of data, process it, and inserts into database file. To check if the test is successfully passed, I have fetched the count of records and asserted it with the length of datalist i.e.; 261.
 4) test_status(): This test function is used to test the 'status()' function  which fetches the incident_nature and its occurrence counts.
 5) test_createdb(): It is used to test if the connection is established successfully to the database.
+
+Example:
+![img_12.png](img_12.png)
+
+GitHub:
+The above-mentioned files need to be added, committed, and pushed to GitHub repository by using the following commands.
+1) git add file-name;
+2) git commit -m "commit message"
+3) git push origin main
 
