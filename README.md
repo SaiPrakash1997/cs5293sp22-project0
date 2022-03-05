@@ -26,7 +26,7 @@ Assumptions made in the project:
 * The URL provided to the code should be active in the website: https://www.normanok.gov/public-safety/police-department/crime-prevention-data/department-activity-reports
 * After observing various reports, I have found that 'Incident ORI' column consists of only four types of values i.e.; 14005, EMSSTAT, OK0140200, and 14009. 
 * Column values in all rows are separated by '\n'. So, I have added a delimiter to all the values in the 'Incident ORI' column.
-* Coming to missing/Empty values, I have assigned Null value to these fields. I have made an assumption after reviewing various that empty value occur only in location and nature columns that too at the same time. So, when ever the length is equals 3, I am adding Null value to the record.
+* Coming to missing/Empty values, I have assigned Null value to these fields. I have made an assumption after reviewing various files that empty values occur only in location and nature columns that too at the same time. So, when ever the length equals 3, I am adding Null values to the record.
 * Multiline values: these only appear in location column. So, when these appear in a pdf file, I am combining/merging excess values to the second index in the record's list and deleting the excess values.
 * The database file is created with the name 'normanpd.db'
 * The incidents database is dropped first whenever you try to insert new pdf file data into the database.
