@@ -1,3 +1,4 @@
+import io
 import sqlite3
 from project0.extractIncidents import extractDataFromFile
 from project0.fetchIncidents import dataFetchedFromURL
@@ -11,6 +12,7 @@ def test_fetchincidents():
     extractData = extractDataFromFile()
     dataList = extractData.extractincidents(dataFromFunc)
     assert dataFromFunc is not None
+    assert io.BytesIO(dataFromFunc)
     assert len(dataList) != 0
     assert len(dataList) == 262
 

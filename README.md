@@ -56,7 +56,7 @@ extractIncidents.py
 * Using the' PyPDF2.pdf.PdfFileReader' module, we read the data from tempfile and store it in pdfReader variable which becomes an iterable file-like object.
 * I have used for loop to iterate the pdfReader and to extract text in a page based on parameter i.
  
-![img.png](img.png)
+![img.png](docs/img.png)
 
 * Above if block was written for page 0 to replace String discripencies like 'NORMAN POLICE DEPARTMENT', 'Daily Incident Summary (Public)', 'Date / Time', 'Incident', 'Number', 'Location', 'Nature', and 'Incident ORI' with ''(empty space).
 * Further to remove the empty spaces in a string, I have used the strip method.
@@ -231,42 +231,42 @@ Alarm
 OK0140200`
 
 
-![img_1.png](img_1.png)
+![img_1.png](docs/img_1.png)
 * The above if block can be used to remove spaces if any for the remaining pages in the pdf file.
-![img_2.png](img_2.png)
+![img_2.png](docs/img_2.png)
 * After the String value in the page is stripped of spaces, I am adding a delimiter to the values in the 5th column in the file to specify that it is the end of the row(To know more about it please refer to the assumptions block).
 * After adding a delimiter to the values, it is easy to split the String value(which contains the whole page) into a list using the split() method. So, the output for this code will be in a list format containing String values which are rows on a certain page.
 Output: Here, every String value is a row in a pdf file.
-![img_3.png](img_3.png)
+![img_3.png](docs/img_3.png)
 
 * In the below code, the for loop is used to iterate a list that contains multiple rows. Every list value splits again into a sub-list and stored in a tempData variable.
-![img_5.png](img_5.png)
+![img_5.png](docs/img_5.png)
 
 * If you observe the below image and the text which is highlighted, we can observe that when the initial split happened every last row in a list that holds the current page data has a delimiter at the very end. So, to clean the data of these kinds of discrepancies, I have written the if-else block that removes the delimiter.
 
-![img_4.png](img_4.png)
+![img_4.png](docs/img_4.png)
 
 
-![img_6.png](img_6.png)
+![img_6.png](docs/img_6.png)
 
 
 
 * After analyzing multiple pdf files, I have found an odd case scenario where the 'incident_location' column value is extended to multiple lines in a row.
   Example:
-    ![img_7.png](img_7.png)
-    ![img_8.png](img_8.png)
+    ![img_7.png](docs/img_7.png)
+    ![img_8.png](docs/img_8.png)
 
 * To solve this issue, I have written an if block that checks if the length of the list is greater than 5.
   For example: if the length of the list equals 6 then the 'incident_location' field value for the current row exceeded one more line. So, I have combined the values at the index of 2 and 3 and replaced them at index 2 in a list. Finally, deleted the extra column in the list.
-  ![img_6.png](img_6.png)
+  ![img_6.png](docs/img_6.png)
 
 * How to handle Null/empty values in a pdf file? or Where do Null/Empty values exist in a pdf file?
   First, I have analyzed multiple Daily Activity Reports and found this kind of scenario plays out one way i.e.; empty/null values exist only in the 'incident_location' and 'incident_nature' columns and that too happens at the same time.
    Example: 
-      ![img_10.png](img_10.png)
-      ![img_11.png](img_11.png)
+      ![img_10.png](docs/img_10.png)
+      ![img_11.png](docs/img_11.png)
 * So, to handle this case, again I am checking the length of the list if the length equals 3 then we have two missing or empty values. I immediately added a condition that also checks to see if the first value in an index is in date format. If the condition is true then I am inserting the Null value to the index 2 and 3 in the list. 
-![img_9.png](img_9.png)
+![img_9.png](docs/img_9.png)
 * Here, I am using a regex to check if the first value in the list consists a date.
 * Finally, I am adding the list which contains the value of a row to another list for all pages and returning the final list called dataList to the main function.
 
@@ -293,7 +293,7 @@ test_methods.py:
 5) test_createdb(): It is used to test if the connection is established successfully to the database.
 
 Example:
-![img_12.png](img_12.png)
+![img_12.png](docs/img_12.png)
 
 ### GitHub:
 The above-mentioned files need to be added, committed, and pushed to GitHub repository by using the following commands.
