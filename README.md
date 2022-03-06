@@ -4,11 +4,11 @@ Sai Prakash Davuluri
 
 Goal: the aim of the project is to provide a summary of incident_nature and its respective count that happened in Norman on a particular date as output by taking in the URL as input from the user. This pdf file contains sensitive information like incident nature, location etc.
 
-EXAMPLE ON HOW TO RUN THE APPLICATION: 
+### EXAMPLE ON HOW TO RUN THE APPLICATION: 
 
 pipenv run python project0/main.py --incidents https://www.normanok.gov/sites/default/files/documents/2022-02/2022-02-01_daily_incident_summary.pdf
 
-WEB OR EXTERNAL LIBRARIES:
+### WEB OR EXTERNAL LIBRARIES:
 * import argparse
 * import PyPDF2
 * import re
@@ -16,12 +16,11 @@ WEB OR EXTERNAL LIBRARIES:
 * import sqlite3
 
 INSTALLATION OF ABOVE LIBRARIES:
-* To install PyPDF2: pip install PyPDF2 (if you receive an error like 'module not found' please use this: pipenv install PyPDF2)
-* To install re: pip install regex
+* To install PyPDF2: pipenv install PyPDF2
 
-Note: All the above-mentioned libraries come as in-built modules for python3 but if they are not pre-installed then use the above commands to install them.
+Note: All the remaining above-mentioned libraries come as in-built modules for python3.
 
-Assumptions made in the project:
+### Assumptions made in the project:
 * These assumptions are made after analyzing numerous daily activity reports.
 * The URL provided to the code should be active in the website: https://www.normanok.gov/public-safety/police-department/crime-prevention-data/department-activity-reports
 * After observing various reports, I have found that 'Incident ORI' column consists of only four types of values i.e.; 14005, EMSSTAT, OK0140200, and 14009. 
@@ -34,9 +33,10 @@ Assumptions made in the project:
 
 
 
-FUNCTIONS AND APPROACH TO DEVELOPING THE DATABASE:
+### FUNCTIONS AND APPROACH TO DEVELOPING THE DATABASE:
 
 main.py:
+
 * This file acts as a base layer for my project where it takes the incidents URL which is of String type as input from the user and passes it to the main function as an input parameter.
 * In the main function, we make function calls to three different class files named fetchIncidents.py, extractIncidents.py, and incidentsDB.py which contains methods that collect, extract, insert, and provide incident_nature, respective count to the user.
 * At first, the URL which was collected from the user will be passed as an input parameter to the 'fetchincidents' function in the 'dataFetchedFromURL' class in the fetchIncidents.py file. This function returns data as output which will be acted as an input for another function.
@@ -45,15 +45,19 @@ main.py:
 * Finally, we call the 'status' function in the 'incidentDataBase' class in the incidentsDB.py file to check the incident_nature and its respective count.
 
 fetchIncidents.py:
+
 * In this file, the 'fetchincidents' function receives the user-provided URL as an input and uses the urllib.request library to open the URL and returns the output as file-like objects. This library has urlopen function to perform this operation.
 * The final result is returned to the main function and passed as an input to the 'extractincidents' function.
 
 extractIncidents.py
+
 * This file contains a function called 'extractincidents' which takes the result from 'fetchincidents' function.
 * Firstly, it writes the data to a temporary file using the "import tempfile" module and sets the seek value to 0. So, python knows to read data from the start of the file.
 * Using the' PyPDF2.pdf.PdfFileReader' module, we read the data from tempfile and store it in pdfReader variable which becomes an iterable file-like object.
-* I have used for loop to iterate the pdfReader and to extract text in a page based on parameter i. 
+* I have used for loop to iterate the pdfReader and to extract text in a page based on parameter i.
+ 
 ![img.png](img.png)
+
 * Above if block was written for page 0 to replace String discripencies like 'NORMAN POLICE DEPARTMENT', 'Daily Incident Summary (Public)', 'Date / Time', 'Incident', 'Number', 'Location', 'Nature', and 'Incident ORI' with ''(empty space).
 * Further to remove the empty spaces in a string, I have used the strip method.
 
@@ -274,7 +278,7 @@ incidentsDB.py:
 
 Note: if an error occur whilst establishing a connection to database file then it will be handled by except block.
 
-Test Cases:
+### Test Cases:
 * Test cases to test above functionalities are available in tests folder which contains a python file called test_methods.py.
 * Command to install pytest: pipenv install pytest
 * Command to run test cases: pipenv run python -m pytest
@@ -291,7 +295,7 @@ test_methods.py:
 Example:
 ![img_12.png](img_12.png)
 
-GitHub:
+### GitHub:
 The above-mentioned files need to be added, committed, and pushed to GitHub repository by using the following commands.
 1) git add file-name;
 2) git commit -m "commit message"
