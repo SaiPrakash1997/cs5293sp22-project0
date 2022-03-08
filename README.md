@@ -5,7 +5,11 @@ Sai Prakash Davuluri
 Goal: the aim of the project is to provide a summary of incident_nature and its respective count that happened in Norman on a particular date as output by taking in the URL as input from the user. This pdf file contains sensitive information like incident nature, location etc.
 
 ### EXAMPLE ON HOW TO RUN THE APPLICATION: 
-
+#### steps:
+1) First clone the project using : git clone <project-url>
+2) check to see if there is a directory named as 'cs5293sp22-project0' using ls
+3) open the directory  using cd cs5293sp22-project0
+4) Run the below command to start the project:
 pipenv run python project0/main.py --incidents https://www.normanok.gov/sites/default/files/documents/2022-02/2022-02-01_daily_incident_summary.pdf
 
 ### WEB OR EXTERNAL LIBRARIES:
