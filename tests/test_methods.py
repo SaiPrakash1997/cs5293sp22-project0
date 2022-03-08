@@ -3,10 +3,15 @@ import sqlite3
 from project0.extractIncidents import extractDataFromFile
 from project0.fetchIncidents import dataFetchedFromURL
 from project0.incidentsDB import incidentDataBase
+# import os
 
 
 def test_fetchincidents():
-    urlParse = "file:///C:/Users/saida/PycharmProjects/cs5293sp22-project0/2022-01-01_daily_incident_summary.pdf"
+    # urlParse = "file:///C:/Users/saida/PycharmProjects/cs5293sp22-project0/2022-01-01_daily_incident_summary.pdf"
+    # urlParse = open('2022-01-01_daily_incident_summary.pdf', 'rb')
+    # path = os.getcwd()
+    urlParse = "https://www.normanok.gov/sites/default/files/documents/2022-03/2022-03-06_daily_incident_summary.pdf"
+    print(urlParse)
     fetchIncidentObj = dataFetchedFromURL()
     dataFromFunc = fetchIncidentObj.fetchincidents(urlParse)
     extractData = extractDataFromFile()
@@ -14,7 +19,7 @@ def test_fetchincidents():
     assert dataFromFunc is not None
     assert io.BytesIO(dataFromFunc)
     assert len(dataList) != 0
-    assert len(dataList) == 262
+    assert len(dataList) == 267
 
 
 def test_extractsIncidents():
