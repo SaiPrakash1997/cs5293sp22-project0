@@ -26,6 +26,7 @@ def test_extractsIncidents():
     dataList = extractData.extractincidents(localFileData.read())
     assert len(dataList) != 0
     assert len(dataList) == 262
+    assert type(dataList) == list
 
 
 def test_populatedb():
@@ -42,6 +43,7 @@ def test_populatedb():
     result = sql_cursor.fetchall()
     print(result)
     assert result[0][0] == 261
+    assert type(result[0]) == tuple
 
 
 def test_status():
@@ -51,14 +53,10 @@ def test_status():
     for data in result:
         len(data) > 0
     assert result is not None
+    assert type(result) == list
 
 
 def test_createdb():
     incidentObj = incidentDataBase()
     con = incidentObj.createdb()
     assert con is not None
-
-
-
-
-
