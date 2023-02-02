@@ -1,7 +1,3 @@
-# cs5293sp22-project0
-NAME: 
-Sai Prakash Davuluri
-
 Goal: the aim of the project is to provide a summary of incident_nature and its respective count that happened in Norman on a particular date as output by taking in the URL as input from the user. This pdf file contains sensitive information like incident nature, location etc.
 
 ### EXAMPLE ON HOW TO RUN THE APPLICATION: 
